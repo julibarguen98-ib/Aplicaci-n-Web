@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Doingne Task - Tablero Kanban</title>
+        <link rel="stylesheet" href="src/style.css">
+
+    </head>
+    <body>
+        <!--Encabezado-->
+        <header class="app-header">
+            <div class="logo-container">
+                <img src="img/logo.png" class="app-logo" alt="Doingne Task Logo">
+                <h1 class="app-title">Doingne Task</h1>
+            </div>
+            <button class="btn btn-primary" id="btn-open-modal">+ Nueva Tarea</button>
+        </header>
+        <!--Tablero principal-->
+        <main class="kanban-board">
+            <!--Columna Do-->
+            <section class="kanban-column" id="col-todo">
+                <header class="column-header status-todo">
+                    <h2>Do</h2>
+                    <span class="task-count" id="count-todo">0</span>
+                </header>
+                <div class="task-list" id="todo-list" data-status="todo">
+                </div>
+            </section>
+            <!--Columna Doing-->
+            <section class="kanban-column" id="col-doing">
+                <header class="column-header status-doing">
+                    <h2>Doing</h2>
+                    <span class="task-list" id="count-doing">0</span>
+                </header>
+                <div class="task-list" id="doing-list" data-status="doing">
+                </div>
+            </section>
+            <!--Columna Done-->
+            <section class="kanban-column" id="col-done">
+                <header class="column-header status-done">
+                    <h2>Done</h2>
+                    <span class="task-count" id="count-done">0</span>
+                </header>
+                <div class="task-list" id="done-list" data-status="done">
+                </div>
+            </section>
+        </main>
+        <!--Ventana para agregar/editar tarea-->
+        <div class="modal-overlay" id="task-modal">
+            <div class="modal-content">
+                <header class="modal-header">
+                    <h3 id="modal-title">Agregar Nueva Tarea</h3>
+                    <button class="btn-close" id="btn-close-modal">&times;</button>
+                </header>
+                <form id="task-form">
+                    <input type="hidden" id="task-id"></input>
+                    <div class="form-group">
+                        <label for="task-desc-input">Descripción</label>
+                        <input type="text" id="task-title-input" required placeholder="Escribe el título..."></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-desc-input">Descripción</label>
+                        <textarea id="task-desc-input" rows="3" placeholder="Detalles de la tarea..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-priority-input">Prioridad</label>
+                        <select id="task-priority-input">
+                            <option value="baja">Baja</option>
+                            <option value="media">Media</option>
+                            <option value="alta">Alta</option>
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secundary" id="btn-cancel">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="src/script.js"></script>
+    </body>
+</html>
