@@ -2,7 +2,8 @@
 
 Una aplicación web interactiva de gestión de proyectos estilo Kanban. Permite organizar tareas por estados, filtrarlas en tiempo real y gestionarlas de forma intuitiva mediante arrastrar y soltar (*drag and drop*).
 
-![Demo del Proyecto](C:\Users\angel\Documents\TAREAS DE DESARROLLO WEB\doingnetask.png) 
+<img width="1363" height="602" alt="doingnetask" src="https://github.com/user-attachments/assets/4f912528-d16f-43a3-bde6-c12161f51527" />
+
 
 ---
 
