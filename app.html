@@ -1,84 +1,321 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Doingne Task - Tablero Kanban</title>
-        <link rel="stylesheet" href="src/style.css">
 
-    </head>
-    <body>
-        <!--Encabezado-->
-        <header class="app-header">
-            <div class="logo-container">
-                <img src="img/logo.png" class="app-logo" alt="Doingne Task Logo">
-                <h1 class="app-title">Doingne Task</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doingne Task - Tablero Kanban</title>
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet">
+    <script src="src/js/scriptapp.js" defer></script>
+
+</head>
+
+<body>
+    <!--Encabezado-->
+    <header class="app-header">
+        <div class="logo-container">
+            <img src="src/img/logo.png" class="app-logo" alt="Doingne Task Logo">
+            <h1 class="app-title">Doingne Task</h1>
+        </div>
+        <div class="nav">
+            <div class="search-box">
+                <span class="material-symbols-outlined search-icon">Search</span>
+                <input type="text" id="task-search-input" placeholder="Buscar tarea..."></input>
+                <span class="material-symbols-outlined keyboard_command_key-icon">keyboard_command_key</span>
             </div>
-            <button class="btn btn-primary" id="btn-open-modal">+ Nueva Tarea</button>
-        </header>
-        <!--Tablero principal-->
-        <main class="kanban-board">
-            <!--Columna Do-->
-            <section class="kanban-column" id="col-todo">
-                <header class="column-header status-todo">
-                    <h2>Do</h2>
-                    <span class="task-count" id="count-todo">0</span>
-                </header>
-                <div class="task-list" id="todo-list" data-status="todo">
+            <div class="quick-filters">
+                <button class="btn btn-light" id="filter-all">
+                    <span class="material-symbols-outlined">Checklist</span>Todas
+                </button>
+                <button class="btn btn-light" id="filter-asigned">
+                    <span class="material-symbols-outlined">person</span>Asignadas
+                </button>
+                <button class="btn btn-light" id="filter-priority">
+                    <span class="material-symbols-outlined">flag</span>Prioritarias
+                </button>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" id="btn-notificacions" title="Notificaciones">
+                    <span class="material-symbols-outlined">Notifications</span>
+                    <span class="badge-dot"></span>
+                </button>
+                <button class="icon-btn" id="btn-settings" tittle="Ajustes">
+                    <span class="material-symbols-outlined">tune</span>
+                </button>
+                <div class="avatar" title="Perfil de usuraio">
+                    <img class="profile-avatar" src="src/img/person.png" alt="Usuario"></img>
                 </div>
-            </section>
-            <!--Columna Doing-->
-            <section class="kanban-column" id="col-doing">
-                <header class="column-header status-doing">
-                    <h2>Doing</h2>
-                    <span class="task-list" id="count-doing">0</span>
-                </header>
-                <div class="task-list" id="doing-list" data-status="doing">
-                </div>
-            </section>
-            <!--Columna Done-->
-            <section class="kanban-column" id="col-done">
-                <header class="column-header status-done">
-                    <h2>Done</h2>
-                    <span class="task-count" id="count-done">0</span>
-                </header>
-                <div class="task-list" id="done-list" data-status="done">
-                </div>
-            </section>
-        </main>
-        <!--Ventana para agregar/editar tarea-->
-        <div class="modal-overlay" id="task-modal">
-            <div class="modal-content">
-                <header class="modal-header">
-                    <h3 id="modal-title">Agregar Nueva Tarea</h3>
-                    <button class="btn-close" id="btn-close-modal">&times;</button>
-                </header>
-                <form id="task-form">
-                    <input type="hidden" id="task-id"></input>
-                    <div class="form-group">
-                        <label for="task-desc-input">Descripción</label>
-                        <input type="text" id="task-title-input" required placeholder="Escribe el título..."></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="task-desc-input">Descripción</label>
-                        <textarea id="task-desc-input" rows="3" placeholder="Detalles de la tarea..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="task-priority-input">Prioridad</label>
-                        <select id="task-priority-input">
-                            <option value="baja">Baja</option>
-                            <option value="media">Media</option>
-                            <option value="alta">Alta</option>
-                        </select>
-                    </div>
-                    <div class="modal-actions">
-                        <button type="button" class="btn btn-secundary" id="btn-cancel">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </form>
             </div>
         </div>
+    </header>
+    <!--Tablero principal-->
+    <main class="kanban-board-main">
+        <div class="dashboard-card">
+            <section class="board-header">
+                <div class="board-title-group">
+                    <div class="title-with-badge">
+                        <h1>Tablero principal</h1>
+                        <span class="status-pill green">Ingeniería</span>
+                    </div>
+                    <p class="status">
+                        <a id="task-link" href="http://localhost:3000/task">
+                            <code>http://localhost:3000/task</code>
+                        </a>
+                        <span id="ping-label">Conectando...</span>
+                    </p>
+                </div>
+                <div class="controls">
+                    <div class="controls-search-filter">
+                        <span class="material-symbols-outlined" filter-icon>filter_alt</span>
+                        <input id="task-filter-input" type="search" placeholder="filtrar por título">
+                    </div>
+                    <select id="task-priority-filter">
+                        <option value="ALL">Todas las prioridades</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Media">Media</option>
+                        <option value="Baja">Baja</option>
+                    </select>
+                    <button class="btn btn-light" id="btn-columns">
+                        <span class="material-symbols-outlined">view_column</span>Columna
+                    </button>
+                    <button class="btn btn-primary" id="btn-new-task">
+                        <span class="material-symbols-outlined">add_task</span> Nueva tarea
+                    </button>
+                </div>
+            </section>
+        </div>
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div>
+                    <span class="stat-label">Total tareas</span>
+                    <div class="stat-value"></div>
+                </div>
+                <span class="material-symbols-outlined stat-icon">format_list_bulleted</span>
+            </div>
+            <div class="stat-card">
+                <div>
+                    <span class="stat-label">En progreso</span>
+                    <div class="stat-value"></div>
+                </div>
+                <span class="material-symbols-outlined stat-icon icon-progress">sync</span>
+            </div>
+            <div class="stat-card">
+                <div>
+                    <span class="stat-label">Completadas</span>
+                    <div class="stat-value"></div>
+                </div>
+                <span class="material-symbols-outlined stat-icon icon-done">task_alt</span>
+            </div>
+            <div class="stat-card">
+                <div>
+                    <span class="stat-label">Tasa de entrega</span>
+                    <div class="stat-value"></div>
+                </div>
+                <span class="material-symbols-outlined stat-icon">trending_up</span>
+            </div>
+        </section>
+        <!--Columna Do-->
+        <section class="kanban-board">
+            <div class="kanban-column" id="col-todo">
+                <div class="column-header status-todo">
+                    <h2><span class="material-symbols-outlined">radio_button_unchecked</span>Do</h2>
+                    <button class="icon-btn add-card-btn" title="Añadir">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+                <div class="cards-container">
+                    <article class="task-card">
+                        <div class="card-header">
+                            <span class="task-id"></span>
+                            <span class="badge-priority high" id="detail-priority-badge"></span>
+                        </div>
+                        <h3 title="task-title"></h3>
+                        <p class="task-desc"></p>
+                        <div class="card-footer">
+                            <span class="task-date"><span class="material-symbols-outlined">calendar_today</span></span>
+                            <div class="card-right">
+                                <span class="comments"><span class="material-symbols-outlined">chat_bubble</span></span>
+                            </div>
+                            <div class="user-avatar-mini"></div>
+                        </div>
+                    </article>
+                </div>
+                <button class="btn-add-task-full">
+                    <span class="material-symbols-outlined">add</span>Añadir tarea
+                </button>
+            </div>
+            <!--Columna Doing-->
+            <div class="kanban-column" id="col-doing">
+                <div class="column-header">
+                    <h2><span class="material-symbols-outlined">progress_activity</span>Doing</h2>
+                    <button class="icon-btn add-card-btn" title="Añadir">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+                <div class="cards-container">
+                    <article class="task-card">
+                        <div class="card-header">
+                            <span class="task-id"></span>
+                            <span class="badge-priority medium" id="detail-priority-badge"></span>
+                        </div>
+                        <h3 title="task-title"></h3>
+                        <p class="task-desc">
+                        </p>
+                        <div class="card-footer">
+                            <span class="task-date"><span class="material-symbols-outlined">calendar_today</span></span>
+                            <div class="card-right">
+                                <span class="comments"><span class="material-symbols-outlined">chat_bubble</span></span>
+                            </div>
+                            <div class="user-avatar-mini"></div>
+                    </article>
+                </div>
+                <button class="btn-add-task-full">
+                    <span class="material-symbols-outlined">add</span>Añadir tarea
+                </button>
+            </div>
+            <!--Columna Done-->
+            <div class="kanban-column" id="col-done">
+                <div class="column-header">
+                    <h2><span class="material-symbols-outlined">task_alt</span>Done</h2>
+                    <button class="icon-btn add-card-btn" title="Añadir">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+                <div class="cards-container">
+                    <article class="task-card">
+                        <div class="card-header">
+                            <span class="task-id"></span>
+                            <span class="badge-priority low" id="detail-priority-badge"></span>
+                        </div>
+                        <h3 title="task-title"></h3>
+                        <p class="task-desc">
+                        </p>
+                        <div class="card-footer">
+                            <span class="task-date"><span class="material-symbols-outlined">calendar_today</span></span>
+                            <div class="card-right">
+                                <span class="comments"><span class="material-symbols-outlined">chat_bubble</span></span>
+                            </div>
+                            <div class="user-avatar-mini"></div>
+                        </div>
+                    </article>
+                </div>
+                <button class="btn-add-task-full">
+                    <span class="material-symbols-outlined">add</span>Añadir tarea
+                </button>
+            </div>
+        </section>
+    </main>
+    <!--Asignar tarea-->
+    <div class="create-task" id="modal-create-task">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div>
+                    <h2>Nueva tarea</h2>
+                    <small>Task</small>
+                </div>
+                <button class="btn-close-modal">
+                    <span class="material-symbols-outlined close-icon">close_small</span>
+                </button>
+            </div>
+            <form id="form-create-task">
+                <label>Título
+                    <input id="create-title" required></input>
+                </label>
+                <label>Descripción
+                    <textarea id="create-description" rows="3" required></textarea>
+                </label>
+                <div class="form-grid">
+                    <label>Prioridad
+                        <select id="create-priority" required>
+                            <option>Baja</option>
+                            <option>Media</option>
+                            <option>Alta</option>
+                        </select>
+                    </label>
+                    <label>Fecha
+                        <input id="create-date" type="date" required></input>
+                    </label>
+                    <label>Asignado a:
+                        <input type="text" id="create-assigned" placeholder="Ej: Ana">
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button class="btn-primary" type="submit">
+                        <span class="material-symbols-outlined">save</span>Guardar Tarea
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--Detalle de la tarea-->
+    <div class="modal-hidden" id="task-detail">
+        <div class="modal-box-large">
+            <div class="modal-header">
+                <div>
+                    <code id="detail-card-id"></code>
+                    <span class="badge-priority" id="detail-priority-badge"></span>
+                    <h2>Detalles</h2>
+                </div>
+                <div>
+                    <button class="danger-btn" id="btn-delete-task">
+                        <span class="material-symbols-outlined" delete-icon>delete</span> Eliminar</button>
+                    <button class="btn-close-detail">
+                        <span class="material-symbols-outlined close-icon">close_small</span>
+                    </button>
+                </div>
+            </div>
+            <form id="form-edit-task">
+                <input id="detail-task-id" type="hidden"></input>
+                <label>TÍTULO DE LA TAREA (EDITABLE)
+                    <input id="detail-title" required></input>
+                </label>
+                <div class="form-grid">
+                    <label>Estado / Columna
+                        <select id="detail-status-select">
+                            <option value="do">Por hacer</option>
+                            <option value="doing">En progreso</option>
+                            <option value="done">Completado</option>
+                        </select>
+                    </label>
+                    <label>Prioridad
+                        <select id="detail-priority">
+                            <option value="Baja">Baja</option>
+                            <option value="Media">Media</option>
+                            <option value="Alta">Alta</option>
+                        </select>
+                    </label>
 
-        <script src="src/script.js"></script>
-    </body>
+                    <label>Fecha de entrega
+                        <input id="detail-date" type="date">
+                    </label>
+                </div>
+                <label>DESCRIPCIÓN Y ESPECIFICACIONES TÉCNICAS
+                    <textarea id="detail-description" rows="2"></textarea>
+                </label>
+                <button class="primary-btn"><span class="material-symbols-outlined">
+                        save
+                    </span>Guardar</button>
+            </form>
+            <section class="comments-task">
+                <h3>Comentarios y actividad</h3>
+                <div id="detail-comments-list"></div>
+                <form id="form-add-comment" class="form-add-comment">
+                    <textarea id="new-comment-tex" required placeholder="Escribe un comentario..."></textarea>
+                    <button class="secundary-btn"><span class="material-symbols-outlined">
+                            send
+                        </span>Comentar</button>
+                </form>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+</body>
+
 </html>
