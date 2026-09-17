@@ -38,3 +38,6 @@ Asegúrate de tener instalado [Node.js](https://nodejs.org/) y [pnpm](https://pn
 
 ```bash
 npm install -g pnpm
+
+
+.\node_modules\.bin\json-server.cmd ---watch src/db.json --port 3000
